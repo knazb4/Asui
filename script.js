@@ -101,20 +101,31 @@ document.querySelector('.dish-add').addEventListener('click', (event) => {
 
 // ===== Урок 39 · шаг 3. setInterval: таймер пошёл =====
 // ===== Урок 39 · шаг 4. clearInterval: стоп на нуле и сброс =====
+// ===== Урок 39 · шаг 5. Пауза и защита от двойного старта =====
 let timerId = null;
+
+function stopTimer() {
+  clearInterval(timerId);
+  timerId = null;
+}
 
 function tick() {
   state.left = state.left - 1;
   render();
 
   if (state.left === 0) {
-    clearInterval(timerId);
+    stopTimer();
     statusEl.textContent = `${state.name}: готово!`;
     showToast(`${state.name}: время вышло!`);
   }
 }
 
 startBtn.addEventListener('click', () => {
+  if (timerId !== null) {
+    console.log('Уже идет');
+    return;
+  }
+
   if (state.left === 0) {
     state.left = state.total;
     render();
@@ -125,8 +136,14 @@ startBtn.addEventListener('click', () => {
   console.log('Старт:', formatTime(state.left));
 });
 
+pauseBtn.addEventListener('click', () => {
+  stopTimer();
+  statusEl.textContent = 'Пауза';
+  console.log('Пауза:', formatTime(state.left));
+});
+
 resetBtn.addEventListener('click', () => {
-  clearInterval(timerId);
+  stopTimer();
   state.left = state.total;
   render();
   statusEl.textContent = 'Выберите время';
