@@ -271,5 +271,65 @@ swStop.addEventListener('click', () => {
   console.log('Секундомер:', swTime.textContent);
 });
 
+// ===== Общая практика. Плов по этапам =====
+const stageName = document.querySelector('.stage-name');
+const stageTime = document.querySelector('.stage-time');
+const stageStart = document.querySelector('.stage-start');
+
+const stages = [
+  { name: 'Зирвак', sec: 6 },
+  { name: 'Рис', sec: 4 },
+  { name: 'Томление', sec: 5 },
+];
+
+let stageIndex = 0;
+let stageLeft = stages[0].sec;
+let stageId = null;
+
+function showStage() {
+  stageName.textContent = `Этап ${stageIndex + 1} из ${stages.length}: ${stages[stageIndex].name}`;
+  stageTime.textContent = formatTime(stageLeft);
+}
+
+function nextStage() {
+  stageIndex = stageIndex + 1;
+
+  if (stageIndex === stages.length) {
+    clearInterval(stageId);
+    stageId = null;
+    stageName.textContent = 'Плов готов!';
+    stageTime.textContent = '0:00';
+    showToast('Плов готов!');
+    console.log('Плов готов!');
+    return;
+  }
+
+  stageLeft = stages[stageIndex].sec;
+  showStage();
+  showToast(`Дальше: ${stages[stageIndex].name}`);
+}
+
+stageStart.addEventListener('click', () => {
+  if (stageId !== null) {
+    return;
+  }
+
+  stageIndex = 0;
+  stageLeft = stages[0].sec;
+  showStage();
+
+  stageId = setInterval(() => {
+    stageLeft = stageLeft - 1;
+    showStage();
+
+    if (stageLeft === 0) {
+      nextStage();
+    }
+  }, 1000);
+
+  console.log('Плов начат, этапов:', stages.length);
+});
+
 // ===== Запуск =====
 render();
+showStage();
