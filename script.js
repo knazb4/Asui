@@ -117,6 +117,7 @@ function tick() {
     stopTimer();
     statusEl.textContent = `${state.name}: готово!`;
     showToast(`${state.name}: время вышло!`);
+    startBlink(`⏰ ${state.name}: готово!`);
   }
 }
 
@@ -159,6 +160,7 @@ function tickDishes() {
       if (dish.left === 0) {
         dish.running = false;
         showToast(`${dish.name}: готово!`);
+        startBlink(`⏰ ${dish.name}: готово!`);
       }
     }
   });
@@ -209,6 +211,35 @@ document.querySelector('.busy').addEventListener('click', () => {
   busyMsg.textContent = 'Готово: 3 секунды страница не отвечала';
   console.log('2. Долгая работа закончилась');
 });
+
+// ===== Урок 39 · шаг 8. Уведомление: мигает заголовок =====
+const TITLE = document.title;
+let blinkId = null;
+
+function startBlink(text) {
+  if (blinkId !== null) {
+    return;
+  }
+
+  blinkId = setInterval(() => {
+    document.title = document.title === TITLE ? text : TITLE;
+  }, 1000);
+
+  console.log('Мигаем:', text);
+}
+
+function stopBlink() {
+  if (blinkId === null) {
+    return;
+  }
+
+  clearInterval(blinkId);
+  blinkId = null;
+  document.title = TITLE;
+  console.log('Мигание выключено');
+}
+
+document.addEventListener('click', stopBlink);
 
 // ===== Запуск =====
 render();
