@@ -35,6 +35,7 @@ function renderDishes() {
     if (dishList.children.length === i) {
       dishList.append(document.createElement('li'));
     }
+
     const li = dishList.children[i];
     li.dataset.id = dish.id;
     li.textContent = `${dish.name} — ${formatTime(dish.left)}`;
@@ -69,6 +70,7 @@ function showToast(text) {
 // ===== Основа: выбор времени — уроки 35 и 37 =====
 document.querySelector('.presets').addEventListener('click', (event) => {
   const btn = event.target.closest('.preset');
+
   if (btn === null) {
     return;
   }
@@ -80,9 +82,10 @@ document.querySelector('.presets').addEventListener('click', (event) => {
   showToast(`Выбрано: ${state.name} — ${formatTime(state.left)}`);
 });
 
-// ===== Основа: добавить блюдо — время у него пока стоит =====
+// ===== Основа: добавить блюдо =====
 document.querySelector('.dish-add').addEventListener('click', (event) => {
   const btn = event.target.closest('.dish');
+
   if (btn === null) {
     return;
   }
@@ -240,6 +243,33 @@ function stopBlink() {
 }
 
 document.addEventListener('click', stopBlink);
+
+// ===== Урок 39 · шаг 9. Найдите 5 ошибок: секундомер =====
+const swTime = document.querySelector('.sw-time');
+const swStart = document.querySelector('.sw-start');
+const swStop = document.querySelector('.sw-stop');
+
+let swSec = 0;
+let swId = null;
+
+swStart.addEventListener('click', () => {
+  if (swId !== null) {
+    return;
+  }
+
+  swId = setInterval(() => {
+    swSec = swSec + 1;
+    swTime.textContent = formatTime(swSec);
+  }, 1000);
+
+  console.log('Секундомер пошел');
+});
+
+swStop.addEventListener('click', () => {
+  clearInterval(swId);
+  swId = null;
+  console.log('Секундомер:', swTime.textContent);
+});
 
 // ===== Запуск =====
 render();
