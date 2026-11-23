@@ -98,5 +98,19 @@ document.querySelector('.dish-add').addEventListener('click', (event) => {
   console.log('Блюд в списке:', state.dishes.length);
 });
 
+// ===== Урок 39 · шаг 3. setInterval: таймер пошёл =====
+let timerId = null;
+
+function tick() {
+  state.left = state.left - 1;
+  render();
+}
+
+startBtn.addEventListener('click', () => {
+  timerId = setInterval(tick, 1000);
+  statusEl.textContent = `Идет: ${state.name}`;
+  console.log('Старт:', formatTime(state.left));
+});
+
 // ===== Запуск =====
 render();
