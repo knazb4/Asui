@@ -1,4 +1,5 @@
-// Ас үй: кухонный таймер
+
+ // Ас үй: кухонный таймер
 // Результат — на странице и в консоли: F12 → Console
 console.log('script.js подключен');
 
@@ -99,17 +100,37 @@ document.querySelector('.dish-add').addEventListener('click', (event) => {
 });
 
 // ===== Урок 39 · шаг 3. setInterval: таймер пошёл =====
+// ===== Урок 39 · шаг 4. clearInterval: стоп на нуле и сброс =====
 let timerId = null;
 
 function tick() {
   state.left = state.left - 1;
   render();
+
+  if (state.left === 0) {
+    clearInterval(timerId);
+    statusEl.textContent = `${state.name}: готово!`;
+    showToast(`${state.name}: время вышло!`);
+  }
 }
 
 startBtn.addEventListener('click', () => {
+  if (state.left === 0) {
+    state.left = state.total;
+    render();
+  }
+
   timerId = setInterval(tick, 1000);
   statusEl.textContent = `Идет: ${state.name}`;
   console.log('Старт:', formatTime(state.left));
+});
+
+resetBtn.addEventListener('click', () => {
+  clearInterval(timerId);
+  state.left = state.total;
+  render();
+  statusEl.textContent = 'Выберите время';
+  console.log('Сброс:', formatTime(state.left));
 });
 
 // ===== Запуск =====
