@@ -150,5 +150,44 @@ resetBtn.addEventListener('click', () => {
   console.log('Сброс:', formatTime(state.left));
 });
 
+// ===== Урок 39 · шаг 6. Все блюда: один интервал =====
+function tickDishes() {
+  state.dishes.forEach((dish) => {
+    if (dish.running && dish.left > 0) {
+      dish.left = dish.left - 1;
+
+      if (dish.left === 0) {
+        dish.running = false;
+        showToast(`${dish.name}: готово!`);
+      }
+    }
+  });
+
+  render();
+}
+
+setInterval(tickDishes, 1000);
+
+dishList.addEventListener('click', (event) => {
+  const li = event.target.closest('li');
+
+  if (li === null) {
+    return;
+  }
+
+  const dish = state.dishes.find((d) => {
+    return d.id === Number(li.dataset.id);
+  });
+
+  if (dish === undefined || dish.left === 0) {
+    return;
+  }
+
+  dish.running = !dish.running;
+  render();
+
+  console.log(dish.name, dish.running ? 'идет' : 'на паузе');
+});
+
 // ===== Запуск =====
 render();
