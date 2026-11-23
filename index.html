@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ас үй — кухонный таймер</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="header">
+    <img class="logo" src="images/icon-logo.svg" alt="">
+    <div>
+      <h1 class="brand">Ас үй</h1>
+      <p class="tagline">Кухонный таймер</p>
+    </div>
+  </header>
+  <main class="page">
+    <section class="block card main-timer">
+      <h2>Таймер</h2>
+      <p class="time">0:00</p>
+      <p class="status">Выберите время</p>
+      <div class="presets">
+        <button class="chip preset" data-name="Проверка" data-sec="10">
+          Проверка · 0:10
+        </button>
+        <button class="chip preset" data-name="Чай" data-sec="180">
+          Чай · 3:00
+        </button>
+        <button class="chip preset" data-name="Яйца" data-sec="420">
+          Яйца · 7:00
+        </button>
+        <button class="chip preset" data-name="Манты" data-sec="2400">
+          Манты · 40:00
+        </button>
+      </div>
+      <div class="actions">
+        <button class="btn start">Старт</button>
+        <button class="btn-small pause">Пауза</button>
+        <button class="btn-small reset">Сброс</button>
+      </div>
+    </section>
+    <section class="block dishes">
+      <h2>Все блюда</h2>
+      <p class="hint">Добавьте блюдо — его время пойдет сразу.
+        Нажмите на блюдо: пауза или продолжить.</p>
+      <div class="dish-add">
+        <button class="chip dish" data-name="Проверка" data-sec="5">
+          + Проверка 0:05
+        </button>
+        <button class="chip dish" data-name="Баурсаки" data-sec="300">
+          + Баурсаки 5:00
+        </button>
+        <button class="chip dish" data-name="Сорпа" data-sec="5400">
+          + Сорпа 90:00
+        </button>
+      </div>
+      <ul class="list dish-list"></ul>
+    </section>
+    <section class="block lab">
+      <h2>Опыт: занятая страница</h2>
+      <p class="hint">Запустите таймер, нажмите кнопку
+        и попробуйте кликнуть по странице.</p>
+      <button class="btn-small busy">Занять страницу на 3 с</button>
+      <p class="busy-msg">Страница свободна.</p>
+    </section>
+    <section class="block stopwatch">
+      <h2>Секундомер</h2>
+      <p class="hint">Сколько уже варится.</p>
+      <p class="time sw-time">0:00</p>
+      <div class="actions">
+        <button class="btn sw-start">Старт</button>
+        <button class="btn-small sw-stop">Стоп</button>
+      </div>
+    </section>
+    <section class="block stages">
+      <h2>Плов по этапам</h2>
+      <p class="hint">Этапы идут друг за другом сами.
+        Для проверки — секунды.</p>
+      <p class="stage-name">Этап: —</p>
+      <p class="time stage-time">0:00</p>
+      <div class="actions">
+        <button class="btn stage-start">Начать плов</button>
+        <button class="btn-small stage-skip">Следующий этап</button>
+      </div>
+    </section>
+  </main>
+  <p class="toast" role="status"></p>
+</body>
+</html>

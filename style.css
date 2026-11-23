@@ -1,0 +1,252 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Rubik:wght@700&display=swap");
+
+/* Стили урока 39: готовы целиком — HTML и CSS не меняем, пишем только script.js */
+:root {
+  --color-bg: #fbf5ee;
+  --color-surface: #ffffff;
+  --color-text: #2b1a10;
+  --color-muted: #6e5446;
+  --color-accent: #a63d12;
+  --color-accent-soft: #fbe6d8;
+  --color-border: #efdccf;
+  --color-dark: #3a1a0b;
+  --color-ok: #1d7347;
+  --color-ok-soft: #e2f3e9;
+  --radius: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+h1,
+h2 {
+  font-family: "Rubik", Arial, sans-serif;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+/* ===== Шапка ===== */
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  padding: 32px max(16px, calc((100% - 1040px) / 2));
+  background-color: var(--color-dark);
+  background-image: linear-gradient(90deg, rgba(58, 26, 11, 0.94) 35%, rgba(58, 26, 11, 0.35)),
+    url("images/hero.jpg");
+  background-position: center;
+  background-size: cover;
+  color: #ffffff;
+}
+.logo {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+}
+.brand {
+  margin: 0;
+  font-size: 2rem;
+}
+.tagline {
+  margin: 0;
+  color: #f6efe9;
+}
+
+/* ===== Страница: блоки в сетке ===== */
+.page {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 20px;
+  align-items: start;
+  max-width: 1072px;
+  margin: 0 auto;
+  padding: 24px 16px 96px;
+}
+.block {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background-color: var(--color-surface);
+}
+.block h2 {
+  margin: 0 0 12px;
+  font-size: 1.375rem;
+}
+.block > p {
+  margin: 0 0 12px;
+}
+.card {
+  border-top: 6px solid var(--color-accent);
+}
+.hint {
+  color: var(--color-muted);
+}
+
+/* ===== Табло ===== */
+.time {
+  font-family: "Rubik", Arial, sans-serif;
+  font-size: 3.5rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+.block > .time {
+  margin: 0 0 4px;
+}
+.sw-time,
+.stage-time,
+.round-time {
+  font-size: 2.5rem;
+}
+.status,
+.stage-name,
+.round-name,
+.busy-msg {
+  font-weight: 600;
+}
+.status {
+  color: var(--color-accent);
+}
+
+/* ===== Кнопки ===== */
+.presets,
+.dish-add,
+.rest-add,
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 12px;
+}
+.actions {
+  margin: 0;
+}
+.chip {
+  padding: 6px 14px;
+  border: 2px solid var(--color-border);
+  border-radius: 999px;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.chip:hover {
+  border-color: var(--color-accent);
+}
+.btn {
+  padding: 10px 22px;
+  border: 2px solid var(--color-accent);
+  border-radius: 999px;
+  background-color: var(--color-accent);
+  color: #ffffff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-small {
+  padding: 10px 16px;
+  border: 2px solid var(--color-accent);
+  border-radius: 999px;
+  background-color: var(--color-surface);
+  color: var(--color-accent);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.busy {
+  margin: 0 0 12px;
+}
+
+/* ===== Список таймеров ===== */
+.list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-accent);
+  border-radius: 12px;
+  background-color: var(--color-surface);
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+.list li::after {
+  margin-left: auto;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.list li.paused {
+  border-left-color: var(--color-muted);
+  color: var(--color-muted);
+}
+.list li.paused::after {
+  content: "пауза";
+}
+.list li.done {
+  border-left-color: var(--color-ok);
+  background-color: var(--color-ok-soft);
+  color: var(--color-ok);
+  font-weight: 600;
+}
+.list li.done::after {
+  content: "✓ готово";
+}
+
+/* ===== Сообщение внизу экрана ===== */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  z-index: 10;
+  width: max-content;
+  max-width: calc(100% - 32px);
+  margin: 0;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background-color: var(--color-dark);
+  box-shadow: 0 8px 24px rgba(58, 26, 11, 0.35);
+  color: #ffffff;
+  font-weight: 600;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, 16px);
+  transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+}
+.toast.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+button:focus-visible {
+  outline: 3px solid var(--color-text);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toast {
+    transition: none;
+  }
+}
