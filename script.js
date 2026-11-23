@@ -189,5 +189,26 @@ dishList.addEventListener('click', (event) => {
   console.log(dish.name, dish.running ? 'идет' : 'на паузе');
 });
 
+// ===== Урок 39 · шаг 7. Цикл событий: занятая страница =====
+const busyMsg = document.querySelector('.busy-msg');
+
+document.querySelector('.busy').addEventListener('click', () => {
+  busyMsg.textContent = 'Страница занята…';
+  console.log('1. Клик: начинаем долгую работу');
+
+  setTimeout(() => {
+    console.log('3. Таймер 0 мс: стек освободился');
+  }, 0);
+
+  const end = Date.now() + 3000;
+
+  while (Date.now() < end) {
+    // 3 секунды стек занят: нет перерисовки, клики ждут
+  }
+
+  busyMsg.textContent = 'Готово: 3 секунды страница не отвечала';
+  console.log('2. Долгая работа закончилась');
+});
+
 // ===== Запуск =====
 render();
