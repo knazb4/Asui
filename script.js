@@ -48,14 +48,20 @@ function render() {
 }
 
 // ===== Урок 39 · шаг 1. setTimeout: сообщение на 3 секунды =====
+// ===== Урок 39 · шаг 2. clearTimeout: отмена старого таймера =====
+let toastId = null;
+
 function showToast(text) {
   toast.textContent = text;
   toast.classList.add('show');
   console.log('Сообщение:', text);
 
-  setTimeout(() => {
+  clearTimeout(toastId);
+
+  toastId = setTimeout(() => {
     toast.classList.remove('show');
     console.log('Сообщение скрыто');
+    toastId = null;
   }, 3000);
 }
 
@@ -65,6 +71,7 @@ document.querySelector('.presets').addEventListener('click', (event) => {
   if (btn === null) {
     return;
   }
+
   state.name = btn.dataset.name;
   state.total = Number(btn.dataset.sec);
   state.left = state.total;
@@ -78,12 +85,14 @@ document.querySelector('.dish-add').addEventListener('click', (event) => {
   if (btn === null) {
     return;
   }
+
   state.dishes.push({
     id: state.nextId,
     name: btn.dataset.name,
     left: Number(btn.dataset.sec),
     running: true,
   });
+
   state.nextId = state.nextId + 1;
   render();
   console.log('Блюд в списке:', state.dishes.length);
