@@ -41,9 +41,22 @@ function renderDishes() {
     li.classList.toggle('done', dish.left === 0);
   });
 }
+
 function render() {
   timeEl.textContent = formatTime(state.left);
   renderDishes();
+}
+
+// ===== Урок 39 · шаг 1. setTimeout: сообщение на 3 секунды =====
+function showToast(text) {
+  toast.textContent = text;
+  toast.classList.add('show');
+  console.log('Сообщение:', text);
+
+  setTimeout(() => {
+    toast.classList.remove('show');
+    console.log('Сообщение скрыто');
+  }, 3000);
 }
 
 // ===== Основа: выбор времени — уроки 35 и 37 =====
@@ -56,7 +69,7 @@ document.querySelector('.presets').addEventListener('click', (event) => {
   state.total = Number(btn.dataset.sec);
   state.left = state.total;
   render();
-  console.log('Выбрано:', state.name, formatTime(state.left));
+  showToast(`Выбрано: ${state.name} — ${formatTime(state.left)}`);
 });
 
 // ===== Основа: добавить блюдо — время у него пока стоит =====
