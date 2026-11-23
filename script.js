@@ -1,5 +1,5 @@
 
- // Ас үй: кухонный таймер
+// Ас үй: кухонный таймер
 // Результат — на странице и в консоли: F12 → Console
 console.log('script.js подключен');
 
@@ -275,6 +275,7 @@ swStop.addEventListener('click', () => {
 const stageName = document.querySelector('.stage-name');
 const stageTime = document.querySelector('.stage-time');
 const stageStart = document.querySelector('.stage-start');
+const stageSkip = document.querySelector('.stage-skip');
 
 const stages = [
   { name: 'Зирвак', sec: 6 },
@@ -328,6 +329,16 @@ stageStart.addEventListener('click', () => {
   }, 1000);
 
   console.log('Плов начат, этапов:', stages.length);
+});
+
+// ===== Бонус. Кнопка «Следующий этап» =====
+stageSkip.addEventListener('click', () => {
+  if (stageId === null) {
+    return;
+  }
+
+  console.log('Пропустили этап:', stages[stageIndex].name);
+  nextStage();
 });
 
 // ===== Запуск =====
